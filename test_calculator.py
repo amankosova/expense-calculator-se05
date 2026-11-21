@@ -34,3 +34,10 @@ def test_load_expenses(tmp_path):
     loaded = load_expenses(str(file))
     assert len(loaded) == 1
     assert loaded[0]["category"] == "utilities"
+
+
+def test_negative_or_invalid_amount_raises():
+    with pytest.raises(ValueError):
+        calculate_total([{"amount": -100, "category": "food"}])
+    with pytest.raises(ValueError):
+        summarize_by_category([{"amount": None, "category": "food"}], "food")
